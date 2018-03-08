@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<resources >
 
-<resources>
     <string name="serverUrl">http://49.140.78.187:8080/security/update.xml</string>
 </resources>
