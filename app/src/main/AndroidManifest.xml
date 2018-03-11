@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,14 +25,23 @@
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.sunzhaohenan.phonemanager"
-            android:grantUriPermissions="true"
-            android:exported="false">
-            <!--元数据-->
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <!-- 元数据 -->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path" />
         </provider>
 
+        <activity android:name=".LostProtectedActivity">
+
+        </activity>
+        <receiver android:name="com.example.security.receiver.CallPhoneReceiver">
+            <intent-filter android:priority="100140">
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

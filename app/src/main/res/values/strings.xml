@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PhoneManager</string>
+    <string name="lostNumber">1314</string>
 </resources>

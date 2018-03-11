@@ -22,6 +22,7 @@
         android:layout_marginTop="2dp"
         android:layout_gravity="center"
         android:textColor="@android:color/holo_green_light"
+        android:background="@drawable/text_background"
         />
 
 </LinearLayout>

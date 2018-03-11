@@ -80,7 +80,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void checkPermissions(){
-       checkPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        checkPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        checkPermission(this,Manifest.permission.PROCESS_OUTGOING_CALLS);
     }
 
     private void checkPermission(Activity activity,String permission){
@@ -152,6 +153,7 @@ public class SplashActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                     Log.e("serverErr","cannot connect to server");
+
                 }
             }
         };
