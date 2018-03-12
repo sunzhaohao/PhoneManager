@@ -3,6 +3,7 @@ package com.example.sunzhaohenan.phonemanager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -92,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         switch(position)
         {
             case 0 : //手机防盗
+                Intent intent=new Intent(this,LostProtectedActivity.class);
+
+                startActivity(intent);
                 break;
 
             case 1 : //通讯卫士

@@ -75,13 +75,18 @@ public class SplashActivity extends AppCompatActivity {
             Toast.makeText(this,"begin update",Toast.LENGTH_SHORT).show();
             showUpdateDialog();
         }
-
+        else
+        {
+            Toast.makeText(this,"what",Toast.LENGTH_SHORT).show();
+            loadMainUI();
+        }
 
     }
 
     private void checkPermissions(){
         checkPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
         checkPermission(this,Manifest.permission.PROCESS_OUTGOING_CALLS);
+        checkPermission(this,Manifest.permission.READ_PHONE_STATE);
     }
 
     private void checkPermission(Activity activity,String permission){

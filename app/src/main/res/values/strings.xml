@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">PhoneManager</string>
     <string name="lostNumber">1314</string>
+    <string name="hello_world">欢迎使用</string>
+    <string name="next">下一步</string>
+    <string name="perviout">上一步</string>
+    <string name="guide2">手机卡绑定</string>
 </resources>
