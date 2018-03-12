@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.example.sunzhaohenan.phonemanager.R;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by sunzhaohenan on 2018/3/10.
  */
@@ -59,21 +61,36 @@ public class MainUIAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        View view = inflater.inflate(R.layout.main_item, null);
-        imageView = (ImageView) view.findViewById(R.id.iv_main_icon);
-        textView = (TextView) view.findViewById(R.id.tv_main_name);
-        imageView.setImageResource(ICONS[position]);
-        textView.setText(NAMES[position]);
+        MainViews mainViews;
+        View view;
+        if(convertView==null){
+            mainViews=new MainViews();
+            view=inflater.inflate(R.layout.main_item,null);
+            view.setTag(mainViews);
+        }
+        else{
+            view=convertView;
+            mainViews=(MainViews)view.getTag();
+        }
+        mainViews.textView=(TextView)view.findViewById(R.id.tv_main_name);
+        mainViews.imageView=(ImageView)view.findViewById(R.id.iv_main_icon);
+        mainViews.textView.setText(NAMES[position]);
+        mainViews.imageView.setImageResource(ICONS[position]);
 
         if(position == 0)
         {
             String name = sp.getString("lostName", "");
             if(!name.equals(""))
             {
-                textView.setText(name);
+                mainViews.textView.setText(name);
             }
         }
 
         return view;
+    }
+
+    private class MainViews{
+        TextView textView;
+        ImageView imageView;
     }
 }
