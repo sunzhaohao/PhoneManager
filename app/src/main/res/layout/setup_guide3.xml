@@ -21,13 +21,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <EditText
-            android:id="@+id/text_sim_number"
+            android:id="@+id/et_guide_phoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:hint="请输入一个手机号码"/>
         <Button
-            android:id="@+id/bt_guide_bind"
+            android:id="@+id/bt_guide_select"
             android:layout_width="240dip"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

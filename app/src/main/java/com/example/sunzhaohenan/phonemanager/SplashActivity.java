@@ -52,7 +52,6 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
 
-
         // 全屏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                              WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -87,6 +86,8 @@ public class SplashActivity extends AppCompatActivity {
         checkPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
         checkPermission(this,Manifest.permission.PROCESS_OUTGOING_CALLS);
         checkPermission(this,Manifest.permission.READ_PHONE_STATE);
+        checkPermission(this,Manifest.permission.READ_CONTACTS);
+        checkPermission(this,Manifest.permission.WRITE_CONTACTS);
     }
 
     private void checkPermission(Activity activity,String permission){

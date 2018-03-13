@@ -67,6 +67,9 @@ public class SetupGuide2Activity extends Activity implements View.OnClickListene
                 else
                 {
                     cb_bind.setText("没有绑定");
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.putString("simSerial", null);
+                    editor.commit();
                 }
             }
         });
@@ -84,12 +87,12 @@ public class SetupGuide2Activity extends Activity implements View.OnClickListene
                 break;
 
             case R.id.bt_guide_next :
-                /*Intent intent = new Intent(this, SetupGuide3Activity.class);
+                Intent intent = new Intent(this, SetupGuide3Activity.class);
                 finish();
                 startActivity(intent);
                 //这个是定义activity切换时的动画效果的
                 overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
-               */
+
                 break;
             case R.id.bt_guide_pervious :
 

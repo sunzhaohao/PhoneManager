@@ -127,10 +127,7 @@ public class LostProtectedActivity extends AppCompatActivity implements View.OnC
                 dialog.dismiss();
                 break;
 
-            case R.id.bt_protected_first_no :
-                dialog.dismiss();
-                finish();
-                break;
+
 
             case R.id.bt_protected_login_yes :
                 String pwd = password.getText().toString().toString();
@@ -159,6 +156,7 @@ public class LostProtectedActivity extends AppCompatActivity implements View.OnC
                 break;
 
             case R.id.bt_protected_login_no :
+            case R.id.bt_protected_first_no :
                 dialog.dismiss();
                 finish();
                 break;
