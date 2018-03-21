@@ -88,6 +88,9 @@ public class SplashActivity extends AppCompatActivity {
         checkPermission(this,Manifest.permission.READ_PHONE_STATE);
         checkPermission(this,Manifest.permission.READ_CONTACTS);
         checkPermission(this,Manifest.permission.WRITE_CONTACTS);
+
+        checkPermission(this,Manifest.permission.RECEIVE_BOOT_COMPLETED);
+        checkPermission(this,Manifest.permission.SEND_SMS);
     }
 
     private void checkPermission(Activity activity,String permission){

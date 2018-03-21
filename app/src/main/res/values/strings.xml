@@ -5,4 +5,7 @@
     <string name="next">下一步</string>
     <string name="perviout">上一步</string>
     <string name="guide2">手机卡绑定</string>
+    <string name="isProtected"></string>
+    <string name="lostProtectedNumber"></string>
+    <string name="rePlayGuide">重新配置</string>
 </resources>

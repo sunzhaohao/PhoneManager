@@ -8,34 +8,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.example.security.ui.SetupGuide1Activity;
 import com.example.security.util.MD5Encoder;
 
 public class LostProtectedActivity extends AppCompatActivity implements View.OnClickListener{
-
     private SharedPreferences sp;
     private Dialog dialog;
     private EditText password;
     private EditText confirmPassword;
+    private TextView tv_protectedNumber;
+    private TextView tv_protectedGuide;
+    private CheckBox cb_isProtected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
-        sp = getSharedPreferences("cofig", Context.MODE_PRIVATE);
+        sp = getSharedPreferences("config", Context.MODE_PRIVATE);
 
         if(isSetPassword())
-        {
             showLoginDialog();
-        }
         else
-        {
             showFirstDialog();
-        }
+
     }
 
     private void showLoginDialog()
@@ -43,13 +46,10 @@ public class LostProtectedActivity extends AppCompatActivity implements View.OnC
         dialog = new Dialog(this, R.style.MyDialog);
         View view = View.inflate(this, R.layout.login_dialog, null);
         password = (EditText) view.findViewById(R.id.et_protected_password);
-
         Button yes = (Button) view.findViewById(R.id.bt_protected_login_yes);
         Button cancel = (Button) view.findViewById(R.id.bt_protected_login_no);
-
         yes.setOnClickListener(this);
         cancel.setOnClickListener(this);
-
         dialog.setContentView(view);
         dialog.setCancelable(false);
         dialog.show();
@@ -60,16 +60,12 @@ public class LostProtectedActivity extends AppCompatActivity implements View.OnC
         dialog = new Dialog(this, R.style.MyDialog);
         //dialog.setContentView(R.layout.first_dialog);
         View view = View.inflate(this, R.layout.first_dialog, null);//这种填充布局的方式比较方便，峭用拿到一个LayoutInflate对象
-
         password = (EditText) view.findViewById(R.id.et_protected_first_password);
         confirmPassword = (EditText) view.findViewById(R.id.et_protected_confirm_password);
-
         Button yes = (Button) view.findViewById(R.id.bt_protected_first_yes);
         Button cancel = (Button) view.findViewById(R.id.bt_protected_first_no);
-
         yes.setOnClickListener(this);
         cancel.setOnClickListener(this);
-
         dialog.setContentView(view);
         dialog.setCancelable(false);
         dialog.show();
@@ -78,7 +74,7 @@ public class LostProtectedActivity extends AppCompatActivity implements View.OnC
     private boolean isSetPassword()
     {
         String pwd = sp.getString("password", "");
-        if( pwd == null|| pwd.equals("") )
+        if(pwd.equals("") || pwd == null)
             return false;
 
         return true;
@@ -97,7 +93,7 @@ public class LostProtectedActivity extends AppCompatActivity implements View.OnC
             case R.id.bt_protected_first_yes :
                 String fp = password.getText().toString().trim();
                 String cp = confirmPassword.getText().toString().trim();
-                if("".equals(fp) || "".equals(cp))
+                if(fp.equals("") || cp.equals(""))
                 {
                     Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
                     return;
@@ -127,43 +123,74 @@ public class LostProtectedActivity extends AppCompatActivity implements View.OnC
                 dialog.dismiss();
                 break;
 
-
+            case R.id.bt_protected_first_no :
+                dialog.dismiss();
+                finish();
+                break;
 
             case R.id.bt_protected_login_yes :
                 String pwd = password.getText().toString().toString();
                 if(pwd.equals(""))
-                {
                     Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
-                }
                 else
                 {
                     String str = sp.getString("password", "");
                     if(MD5Encoder.encode(pwd).equals(str))
                     {
-                        if(!isSetupGuide())
+                        if(isSetupGuide())
                         {
-                            finish();
-                            Intent intent = new Intent(this, SetupGuide1Activity.class);
-                            startActivity(intent);
+                            setContentView(R.layout.activity_lost_protected);
+                            tv_protectedNumber = (TextView) findViewById(R.id.tv_lost_protected_number);
+                            tv_protectedGuide = (TextView) findViewById(R.id.tv_lost_protected_guide);
+                            cb_isProtected = (CheckBox) findViewById(R.id.cb_lost_protected_isProtected);
+
+                            tv_protectedNumber.setText("手机安全号码为：" + sp.getString("number", ""));
+                            tv_protectedGuide.setOnClickListener(this);
+
+                            boolean isProtecting = sp.getBoolean("isProtected", false);
+                            if(isProtecting)
+                            {
+                                cb_isProtected.setText("已经开启保护");
+                                cb_isProtected.setChecked(true);
+                            }
+
+                            cb_isProtected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+                            {
+                                @Override
+                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+                                {
+                                    if(isChecked)
+                                        cb_isProtected.setText("已经开启保护");
+                                    else
+                                        cb_isProtected.setText("没有开启保护");
+
+                                    SharedPreferences.Editor editor = sp.edit();
+                                    editor.putBoolean("isProtected", isChecked);
+                                    editor.commit();
+                                }
+                            });
                         }
                         dialog.dismiss();
                     }
                     else
-                    {
                         Toast.makeText(this, "密码错误", Toast.LENGTH_SHORT).show();
-                    }
+
                 }
                 break;
 
             case R.id.bt_protected_login_no :
-            case R.id.bt_protected_first_no :
                 dialog.dismiss();
                 finish();
+                break;
+
+            case R.id.tv_lost_protected_guide : //重新进入设置向导
+                finish();
+                Intent setupGuideIntent = new Intent(this, SetupGuide1Activity.class);
+                startActivity(setupGuideIntent);
                 break;
 
             default :
                 break;
         }
     }
-
 }

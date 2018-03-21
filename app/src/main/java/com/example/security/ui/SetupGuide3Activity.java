@@ -41,6 +41,9 @@ public class SetupGuide3Activity extends Activity implements View.OnClickListene
         bt_select.setOnClickListener(this);
 
         et_phoneNumber = (EditText) findViewById(R.id.et_guide_phoneNumber);
+
+        String number=sp.getString("number","");
+        et_phoneNumber.setText(number);
     }
 
     //重写这个方法，从acitivty里面拿到数据

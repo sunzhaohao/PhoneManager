@@ -86,6 +86,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/bt_guide_finish"
             android:text="完成"
             android:drawableRight="@drawable/next"
             android:layout_alignParentBottom="true"

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -94,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         {
             case 0 : //手机防盗
                 Intent intent=new Intent(this,LostProtectedActivity.class);
-
                 startActivity(intent);
                 break;
 
