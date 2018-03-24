@@ -137,39 +137,7 @@ public class LostProtectedActivity extends AppCompatActivity implements View.OnC
                     String str = sp.getString("password", "");
                     if(MD5Encoder.encode(pwd).equals(str))
                     {
-                        if(isSetupGuide())
-                        {
-                            setContentView(R.layout.activity_lost_protected);
-                            tv_protectedNumber = (TextView) findViewById(R.id.tv_lost_protected_number);
-                            tv_protectedGuide = (TextView) findViewById(R.id.tv_lost_protected_guide);
-                            cb_isProtected = (CheckBox) findViewById(R.id.cb_lost_protected_isProtected);
-
-                            tv_protectedNumber.setText("手机安全号码为：" + sp.getString("number", ""));
-                            tv_protectedGuide.setOnClickListener(this);
-
-                            boolean isProtecting = sp.getBoolean("isProtected", false);
-                            if(isProtecting)
-                            {
-                                cb_isProtected.setText("已经开启保护");
-                                cb_isProtected.setChecked(true);
-                            }
-
-                            cb_isProtected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-                            {
-                                @Override
-                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-                                {
-                                    if(isChecked)
-                                        cb_isProtected.setText("已经开启保护");
-                                    else
-                                        cb_isProtected.setText("没有开启保护");
-
-                                    SharedPreferences.Editor editor = sp.edit();
-                                    editor.putBoolean("isProtected", isChecked);
-                                    editor.commit();
-                                }
-                            });
-                        }
+                        loadMainFrame();
                         dialog.dismiss();
                     }
                     else
@@ -192,5 +160,39 @@ public class LostProtectedActivity extends AppCompatActivity implements View.OnC
             default :
                 break;
         }
+    }
+
+    private void loadMainFrame(){
+        setContentView(R.layout.activity_lost_protected);
+        tv_protectedNumber = (TextView) findViewById(R.id.tv_lost_protected_number);
+        tv_protectedGuide = (TextView) findViewById(R.id.tv_lost_protected_guide);
+        cb_isProtected = (CheckBox) findViewById(R.id.cb_lost_protected_isProtected);
+
+        tv_protectedNumber.setText("手机安全号码为：" + sp.getString("number", ""));
+        tv_protectedGuide.setOnClickListener(this);
+
+        boolean isProtecting = sp.getBoolean("isProtected", false);
+        if(isProtecting )
+        {
+            cb_isProtected.setText("已经开启保护");
+            cb_isProtected.setChecked(true);
+        }
+
+        cb_isProtected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if(isChecked)
+                    cb_isProtected.setText("已经开启保护");
+                else
+                    cb_isProtected.setText("没有开启保护");
+
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putBoolean("isProtected", isChecked);
+                editor.commit();
+            }
+        });
+
     }
 }

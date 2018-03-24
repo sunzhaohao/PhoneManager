@@ -2,6 +2,8 @@ package com.example.security.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.example.security.receiver.MyAdminReceiver;
 import com.example.sunzhaohenan.phonemanager.R;
 
 /**
@@ -73,9 +76,7 @@ public class SetupGuide4Activity extends Activity implements View.OnClickListene
             case R.id.bt_guide_finish :
                 if(cb_protected.isChecked())
                 {
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putBoolean("setupGuide", true);//记录是否已经进行过设置向导了
-                    editor.commit();
+                    finishSetUpGuide();
                     finish();
                 }
                 else
@@ -122,4 +123,19 @@ public class SetupGuide4Activity extends Activity implements View.OnClickListene
         }
     }
 
+    private void finishSetUpGuide(){
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("setupGuide", true);//记录是否已经进行过设置向导了
+        editor.commit();
+
+        DevicePolicyManager devicePolicyManager= (DevicePolicyManager)
+                getSystemService(Context.DEVICE_POLICY_SERVICE);
+
+        ComponentName componentName=new ComponentName(this, MyAdminReceiver.class);
+        if(!devicePolicyManager.isAdminActive(componentName)){
+            Intent intent=new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,componentName);
+            startActivity(intent);
+        }
+    }
 }

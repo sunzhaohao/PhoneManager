@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sunzhaohenan.phonemanager">
+    package="com.example.sunzhaohenan.phonemanager"
+    >
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
@@ -17,6 +18,7 @@
     <!-- 这个是用模拟器进行测试才需要用到的权限，表示是这个模拟的位置 -->
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
 
+    <uses-permission android:name="android.permission.REBOOT"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -68,6 +70,16 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"></action>
             </intent-filter>
         </receiver>
+        <receiver android:name="com.example.security.receiver.MyAdminReceiver"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+        <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/myadmin"></meta-data>
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

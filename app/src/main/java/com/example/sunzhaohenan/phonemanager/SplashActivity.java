@@ -96,6 +96,8 @@ public class SplashActivity extends AppCompatActivity {
         checkPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION);
         checkPermission(this,Manifest.permission.ACCESS_FINE_LOCATION);
 
+        checkPermission(this,Manifest.permission.BIND_DEVICE_ADMIN);
+        checkPermission(this,Manifest.permission.REBOOT);
     }
 
     private void checkPermission(Activity activity,String permission){
