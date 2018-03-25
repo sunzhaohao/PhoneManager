@@ -8,4 +8,6 @@
     <string name="isProtected"></string>
     <string name="lostProtectedNumber"></string>
     <string name="rePlayGuide">重新配置</string>
+    <string name="query">查询</string>
+    <string name="bt_query">查询</string>
 </resources>
