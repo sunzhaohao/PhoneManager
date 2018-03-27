@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.security.service.AddressService;
 import com.example.sunzhaohenan.phonemanager.LostProtectedActivity;
 import com.example.sunzhaohenan.phonemanager.R;
 
@@ -26,5 +27,7 @@ public class CallPhoneReceiver extends BroadcastReceiver{
             abortBroadcast(); //中断广播，不会再响比它有优先级低得广播再传播下去
             setResultData(null);
         }
+
+
     }
 }
